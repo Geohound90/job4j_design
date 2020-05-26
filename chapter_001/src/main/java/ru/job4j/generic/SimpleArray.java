@@ -18,30 +18,18 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void set(int index, T model) {
-        try {
-            data[Objects.checkIndex(index, point)] = model;
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(e);
-        }
+        data[Objects.checkIndex(index, point)] = model;
     }
 
     public void remove(int index) {
-        try {
-            for (int i = Objects.checkIndex(index, point); i < data.length - 1; i++) {
-                data[i] = data[i + 1];
-            }
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(e);
-        }
+        System.arraycopy(data, Objects.checkIndex(index + 1, point),
+                data, index, data.length - 1 - index);
+        data[data.length - 1] = null;
+        point--;
     }
 
     public T get(int index) {
-        try {
-            return (T) data[Objects.checkIndex(index, point)];
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(e);
-        }
-        return null;
+        return (T) data[Objects.checkIndex(index, point)];
     }
 
     @Override
